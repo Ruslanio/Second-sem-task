@@ -6,6 +6,7 @@ import semexter.task.mirhusainov.model.User;
 import semexter.task.mirhusainov.repository.UserJPA;
 import semexter.task.mirhusainov.service.UserService;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 /**
@@ -35,5 +36,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getAll() {
         return userJPA.findAll();
+    }
+
+    @PostConstruct
+    private void setAdmin(){
+        userJPA.save(new User("admin","admin"));
+        userJPA.save(new User("123","123"));
     }
 }

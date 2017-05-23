@@ -13,7 +13,7 @@ public class AbstractJavaFxAppSupport extends Application {
     private ConfigurableApplicationContext context;
     private static String[] args;
 
-    public static void setArgs(String[] args) {
+    private static void setArgs(String[] args) {
         AbstractJavaFxAppSupport.args = args;
     }
 
@@ -24,15 +24,16 @@ public class AbstractJavaFxAppSupport extends Application {
     }
 
     @Override
-    public void stop() throws Exception {
-        context.close();
-        super.stop();
-    }
-
-    @Override
     public void start(Stage primaryStage) throws Exception {
 
     }
+
+    @Override
+    public void stop() throws Exception {
+        super.stop();
+        context.close();
+    }
+
 
     public static void launchApp(Class<? extends AbstractJavaFxAppSupport> certainClass, String[] args){
         AbstractJavaFxAppSupport.setArgs(args);

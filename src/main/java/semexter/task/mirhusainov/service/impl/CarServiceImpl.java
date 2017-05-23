@@ -6,6 +6,7 @@ import semexter.task.mirhusainov.model.Car;
 import semexter.task.mirhusainov.repository.CarJPA;
 import semexter.task.mirhusainov.service.CarService;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 /**
@@ -35,5 +36,11 @@ public class CarServiceImpl implements CarService {
     @Override
     public void delete(Car car) {
         carJPA.delete(car);
+    }
+
+    @PostConstruct
+    private void setTestData(){
+        carJPA.save(new Car("lambo","1993","45000","250","10000"));
+        carJPA.save(new Car("Jigoolee","1967","300000","60","500"));
     }
 }

@@ -3,26 +3,24 @@ package semexter.task.mirhusainov.model;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.annotation.PostConstruct;
+import javax.persistence.*;
 
 /**
  * Created by Ruslan on 22.05.2017.
  */
 @Entity
-@Table
+@Table(name = "\"user\"")
 @Getter
 @Setter
 public class User {
     @Id
     @GeneratedValue
+
     private Long id;
-
+    @Column(name = "login", unique = true)
     private String login;
-
-
+    @Column(name = "password")
     private String password;
 
     public User() {
@@ -33,4 +31,6 @@ public class User {
         this.login = login;
         this.password = password;
     }
+
+
 }

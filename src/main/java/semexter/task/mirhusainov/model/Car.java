@@ -3,38 +3,41 @@ package semexter.task.mirhusainov.model;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by Ruslan on 22.05.2017.
  */
 @Entity
-@Table
+@Table(name = "car")
 @Getter
 @Setter
 public class Car {
 
     @Id
     @GeneratedValue
+    @Column(name = "id")
     private Long id;
 
+    @Column(name = "mark")
     private String mark;
 
-    private int year;
+    @Column(name = "year")
+    private String year;
 
-    private int mileage;
+    @Column(name = "mileage")
+    private String mileage;
 
-    private int enginePower;
+    @Column(name = "enginePower")
+    private String enginePower;
 
-    private int costPerHour;
+    @Column(name = "costPerHour")
+    private String costPerHour;
 
     public Car() {
     }
 
-    public Car(String mark, int year, int mileage, int enginePower, int costPerHour) {
+    public Car(String mark, String year, String mileage, String enginePower, String costPerHour) {
         this.mark = mark;
         this.year = year;
         this.mileage = mileage;

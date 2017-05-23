@@ -4,17 +4,14 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
  * Created by Ruslan on 22.05.2017.
  */
 @Entity
-@Table
+@Table(name = "rent")
 @Getter
 @Setter
 public class Rent {
@@ -22,21 +19,25 @@ public class Rent {
     @Id
     @GeneratedValue
     private Long id;
-
+    @Column(name = "userFullName")
     private String userFullName;
 
-    private int userNumber;
+    @Column(name = "userNumber")
+    private String userNumber;
 
+    @Column(name = "carMark")
     private String carMark;
 
+    @Column(name = "deliveryDate")
     private String deliveryDate;
 
+    @Column(name = "returnDate")
     private String returnDate;
 
     public Rent() {
     }
 
-    public Rent(String userFullName, int userNumber, String carMark, String deliveryDate, String returnDate) {
+    public Rent(String userFullName, String userNumber, String carMark, String deliveryDate, String returnDate) {
         this.userFullName = userFullName;
         this.userNumber = userNumber;
         this.carMark = carMark;

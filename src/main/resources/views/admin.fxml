@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.112"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="semexter.task.mirhusainov.controller.AdminController">
+    <children>
+        <TabPane layoutY="37.0" prefHeight="363.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+                <Tab closable="false" text="Available cars">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="369.0" prefWidth="600.0">
+                            <children>
+                                <TableView fx:id="carTableView" prefHeight="302.0" prefWidth="600.0"/>
+                                <Button layoutY="301.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="162.0"
+                                        text="ADD CAR" onAction="#addCar"/>
+                                <Button layoutX="162.0" layoutY="301.0" mnemonicParsing="false" prefHeight="34.0"
+                                        prefWidth="152.0" text="REMOVE CAR" onAction="#removeCar"/>
+                                <Button layoutX="314.0" layoutY="301.0" mnemonicParsing="false" prefHeight="35.0"
+                                        prefWidth="171.0" text="UPDATE CAR" onAction="#updateCar"/>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab closable="false" text="Rents">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="369.0" prefWidth="600.0">
+                            <children>
+                                <TableView fx:id="rentTableView" prefHeight="302.0" prefWidth="600.0"/>
+                                <Button onAction="#addRent" layoutY="301.0" mnemonicParsing="false" prefHeight="34.0"
+                                        prefWidth="162.0" text="ADD RENT"/>
+                                <Button layoutX="162.0" onAction="#removeRent" layoutY="301.0" mnemonicParsing="false"
+                                        prefHeight="34.0" prefWidth="152.0" text="REMOVE RENT"/>
+                                <Button layoutX="314.0" onAction="#updateRent" layoutY="301.0" mnemonicParsing="false"
+                                        prefHeight="35.0" prefWidth="171.0" text="UPDATE RENT"/>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+        <Button layoutX="395.0" layoutY="-2.0" onAction="#logOut" mnemonicParsing="false" prefHeight="39.0" prefWidth="206.0"
+                text="LOG OUT"/>
+    </children>
+</AnchorPane>

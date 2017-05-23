@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface RentService {
 
-    public void safe(Rent rent);
+    public void save(Rent rent);
     public void delete(Rent rent);
     public List<Rent> getAll();
 }

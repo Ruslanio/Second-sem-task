@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="semexter.task.mirhusainov.controller.RegularUserController">
+   <children>
+      <TabPane layoutY="37.0" prefHeight="363.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab closable="false" text="Available cars">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="369.0" prefWidth="600.0">
+                     <children>
+                        <TableView fx:id="tableView" prefHeight="302.0" prefWidth="600.0" />
+                        <Button layoutY="301.0" onAction="#rentCar" mnemonicParsing="false" prefHeight="34.0" prefWidth="162.0" text="RENT A CAR" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+      <Button layoutX="395.0" onAction="#logOut" layoutY="-2.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="206.0" text="LOG OUT" />
+   </children>
+</AnchorPane>

@@ -6,6 +6,7 @@ import semexter.task.mirhusainov.model.Rent;
 import semexter.task.mirhusainov.repository.RentJPA;
 import semexter.task.mirhusainov.service.RentService;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ public class RentServiceImpl implements RentService {
     private RentJPA rentJPA;
 
     @Override
-    public void safe(Rent rent) {
+    public void save(Rent rent) {
         rentJPA.save(rent);
     }
 
@@ -30,5 +31,11 @@ public class RentServiceImpl implements RentService {
     @Override
     public List<Rent> getAll() {
         return rentJPA.findAll();
+    }
+
+
+    @PostConstruct
+    private void setTestData(){
+        rentJPA.save(new Rent("Ruslan","89600432896","Aston Martin","2017-05-05","28.05.2017"));
     }
 }
