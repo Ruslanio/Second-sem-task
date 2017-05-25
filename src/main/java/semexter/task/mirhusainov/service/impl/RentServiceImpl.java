@@ -36,6 +36,6 @@ public class RentServiceImpl implements RentService {
 
     @PostConstruct
     private void setTestData(){
-        rentJPA.save(new Rent("Ruslan","89600432896","Aston Martin","2017-05-05","28.05.2017"));
+        rentJPA.save(new Rent("Ruslan Mirhusainov","89600432896","Aston Martin","2017-05-05","2017-05-28"));
     }
 }

@@ -9,6 +9,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import semexter.task.mirhusainov.controller.util.SceneChangesHandler;
 import semexter.task.mirhusainov.model.Car;
 import semexter.task.mirhusainov.model.Rent;
 import semexter.task.mirhusainov.service.RentService;
@@ -18,6 +19,7 @@ import javax.annotation.PostConstruct;
 import java.io.FileOutputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ConcurrentModificationException;
 
 /**
  * Created by Ruslan on 23.05.2017.
@@ -42,6 +44,11 @@ public class FormRentController {
     private boolean isUpdating = false;
     private Rent selectedRent;
 
+    private SceneChangesHandler handler;
+
+    public FormRentController() {
+        handler = SceneChangesHandler.getInstance();
+    }
 
     public void setSelectedRent(Rent rent){
         isUpdating = true;
@@ -82,7 +89,14 @@ public class FormRentController {
         String returnDate = String.valueOf(et_return_date.getValue());
 
 
-        validator.isRentFormValid(fullname, number, model, deliveryDate, returnDate);
+        try {
+            validator.isRentFormValid(fullname, number, model, deliveryDate, returnDate);
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR,e.getMessage());
+            alert.show();
+            e.printStackTrace();
+            return;
+        }
 
         Rent newRent = new Rent(fullname, number, model, deliveryDate, returnDate);
         if (selectedRent != null)
@@ -95,19 +109,20 @@ public class FormRentController {
             alert = new Alert(Alert.AlertType.INFORMATION, "rent successfully added");
 
             if (isUpdating) {
-                Rent remember =null;
                 for (Rent rent : rentsFromTable) {
                     if (newRent.getId() == rent.getId()) {
-                        remember = rent;
+                        rentsFromTable.remove(rent);
                         rentService.delete(rent);
                     }
                 }
-                rentsFromTable.remove(remember);
             }
         } catch (NullPointerException e){
             rentService.save(newRent);
             alert = new Alert(Alert.AlertType.INFORMATION, "rent successfully added");
+        }  catch (ConcurrentModificationException e){
+            alert = new Alert(Alert.AlertType.INFORMATION, "rent successfully updated");
         }
+        handler.addRentToTables(newRent);
         alert.show();
 
     }

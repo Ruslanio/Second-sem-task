@@ -31,6 +31,8 @@ public class SceneChangesHandler {
 //    CarService carService;
 
     private static SceneChangesHandler sceneChangesHandler;
+    private ObservableList<Car> forTableCars;
+    private ObservableList<Rent> forTableRents;
 
     private SceneChangesHandler() {
     }
@@ -70,7 +72,7 @@ public class SceneChangesHandler {
     //carService по непонятным причинам не автоварится, хотя идейка все зависимости показывает
     public ObservableList initCarTable(TableView tableView,CarService carService){
         List<Car> cars = carService.getAll();
-        ObservableList<Car> forTable = FXCollections.observableArrayList(cars);
+        forTableCars = FXCollections.observableArrayList(cars);
 
         TableColumn<Car, String> model = new TableColumn<>("Mark/Model");
         model.setCellValueFactory(new PropertyValueFactory<>("mark"));
@@ -88,13 +90,13 @@ public class SceneChangesHandler {
         costPerHour.setCellValueFactory(new PropertyValueFactory<>("costPerHour"));
 
         tableView.getColumns().setAll(model, year, mileage, enginePower, costPerHour);
-        tableView.setItems(forTable);
+        tableView.setItems(forTableCars);
 
-        return forTable;
+        return forTableCars;
     }
     public ObservableList initRentTable(TableView tableView,RentService rentService){
         List<Rent> rents = rentService.getAll();
-        ObservableList<Rent> forTable = FXCollections.observableArrayList(rents);
+        forTableRents = FXCollections.observableArrayList(rents);
 
         TableColumn<Car, String> fullName = new TableColumn<>("Full name");
         fullName.setCellValueFactory(new PropertyValueFactory<>("userFullName"));
@@ -112,8 +114,15 @@ public class SceneChangesHandler {
         returnDate.setCellValueFactory(new PropertyValueFactory<>("returnDate"));
 
         tableView.getColumns().setAll(fullName,number,model,deliveryDate,returnDate);
-        tableView.setItems(forTable);
+        tableView.setItems(forTableRents);
 
-        return forTable;
+        return forTableRents;
+    }
+
+    public void addCarToTables(Car car){
+        forTableCars.add(car);
+    }
+    public void addRentToTables(Rent rent){
+        forTableRents.add(rent);
     }
 }

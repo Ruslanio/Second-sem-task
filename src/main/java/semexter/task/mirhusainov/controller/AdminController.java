@@ -48,7 +48,7 @@ public class AdminController {
     @Autowired
     private MainConfig.View formRentView;
 
-    SceneChangesHandler handler;
+    private SceneChangesHandler handler;
 
     public AdminController() {
         handler = SceneChangesHandler.getInstance();

@@ -7,9 +7,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
+import semexter.task.mirhusainov.controller.util.SceneChangesHandler;
 import semexter.task.mirhusainov.model.Car;
 import semexter.task.mirhusainov.service.CarService;
 import semexter.task.mirhusainov.util.Validator;
+
+import java.util.ConcurrentModificationException;
 
 /**
  * Created by Ruslan on 23.05.2017.
@@ -40,6 +43,12 @@ public class FormCarController {
     @Setter
     private ObservableList<Car> carsFromTable;
 
+    private SceneChangesHandler handler;
+
+    public FormCarController() {
+        handler = SceneChangesHandler.getInstance();
+    }
+
     private boolean isUpdating = false;
     private Car selectedCar;
 
@@ -51,7 +60,13 @@ public class FormCarController {
         String enginePower = et_engine_power.getText();
         String costPerHour = et_cost.getText();
 
-        validator.isCarFormValid(mark, year, mileage, enginePower, costPerHour);
+        try {
+            validator.isCarFormValid(mark, year, mileage, enginePower, costPerHour);
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
+            alert.show();
+            return;
+        }
 
         Car newCar = new Car(mark, year, mileage, enginePower, costPerHour);
         if (selectedCar != null)
@@ -62,18 +77,22 @@ public class FormCarController {
         Alert alert = new Alert(Alert.AlertType.INFORMATION, "car successfully added");
         carsFromTable.add(newCar);
 
-        if (isUpdating) {
-            Car remember = null;
-            for (Car car : carsFromTable) {
-                if (newCar.getId() == car.getId()) {
-                    remember = car;
-                    carService.delete(car);
-                }
-            }
-            carsFromTable.remove(remember);
+        try {
 
+            if (isUpdating) {
+                for (Car car : carsFromTable) {
+                    if (newCar.getId() == car.getId()) {
+                        carsFromTable.remove(car);
+                        carService.delete(car);
+                    }
+                }
+
+            }
+        } catch (ConcurrentModificationException e) {
+            alert = new Alert(Alert.AlertType.INFORMATION, "car successfully updated");
         }
 
+        handler.addCarToTables(newCar);
         alert.show();
 
     }

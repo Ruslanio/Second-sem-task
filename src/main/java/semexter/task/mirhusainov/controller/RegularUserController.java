@@ -44,7 +44,7 @@ public class RegularUserController {
     private CarService carService;
 
     @Autowired
-    private RentService rentService;
+    private MainConfig.View adminView;
 
     @FXML
     public void initialize() {
@@ -62,12 +62,12 @@ public class RegularUserController {
         try {
             mark = tableView.getSelectionModel().getSelectedItem().getMark();
         } catch (NullPointerException e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Choose the car");
-            alert.show();
-            return;
+            mark = "";
         }
+        AdminController adminController = (AdminController) adminView.getController();
         FormRentController controller = (FormRentController) formRentView.getController();
         controller.setModel(mark);
+        controller.clear();
         Stage stage = handler.newStage(formRentView);
         stage.showAndWait();
     }

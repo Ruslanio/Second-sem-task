@@ -42,5 +42,6 @@ public class CarServiceImpl implements CarService {
     private void setTestData(){
         carJPA.save(new Car("lambo","1993","45000","250","10000"));
         carJPA.save(new Car("Jigoolee","1967","300000","60","500"));
+        carJPA.save(new Car("Aston Martin","2009","3000","300","9000"));
     }
 }
